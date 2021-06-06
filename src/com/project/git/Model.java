@@ -121,7 +121,7 @@ public class Model {
         // baca file-untuk-git.txt
 
         try {
-            BufferedWriter writeFile = new BufferedWriter(new FileWriter("file-untuk-git.txt"));
+            BufferedWriter writeFile = new BufferedWriter(new FileWriter("file-untuk-git.txt", true));
             writeFile.write(isiPesan);
             writeFile.newLine();
             writeFile.flush();
@@ -188,7 +188,8 @@ public class Model {
          //pointer.head = commitNext;
          //pointer = commitNext;
          //pointer.head = pointer;
-         //overWriteFile();
+         
+         overWriteFile();
      }
      
      private void overWriteFile(){
@@ -198,13 +199,15 @@ public class Model {
          // baca dan overwrite commit
          try {
             read = new BufferedReader(new FileReader("file-untuk-git.txt"));
-            write = new BufferedWriter(new FileWriter("commit " + countCommit + ".txt"));
+            write = new BufferedWriter(new FileWriter("commit " + countCommit + ".txt", true));
             String baca = read.readLine();
             while(baca != null){
                 write.write(baca);
                 write.newLine();
                 baca = read.readLine();
             }
+            write.flush();
+            write.close();
             // nanti di ganti unix code
             countCommit++;
         } catch (FileNotFoundException ex) {
