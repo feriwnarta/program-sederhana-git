@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedWriter;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -87,7 +88,7 @@ public class Model {
                 initialize();
                 break;
             case 2 :
-                editFIle("ASD");
+                editFile(edit());
                 break;
             case 3 :
                 break;
@@ -113,16 +114,33 @@ public class Model {
         }
     }
     
-    private void editFIle(String isiPesan){
+    private void editFile(String isiPesan){
         // baca file-untuk-git.txt
-        
-        BufferedWriter writeFile;
+
         try {
-            writeFile = new BufferedWriter(new FileWriter("file-untuk-git.txt"));
+            BufferedWriter writeFile = new BufferedWriter(new FileWriter("file-untuk-git.txt"));
+            writeFile.write(isiPesan);
+            writeFile.newLine();
+            writeFile.flush();
+            writeFile.close();
         } catch (IOException ex) {
             System.out.println("file-untuk-git gagal diload untuk diedit \n" + ex.getMessage());
         }
-
     }
+    
+    private String edit(){
+        String message;
+        Scanner input = new Scanner(System.in);
+        System.out.println("masukan isi file-untuk-git.txt");
+        return message = input.nextLine();
+    }
+    
+     private void commit(String message){
+        
+    }
+    
+    
+    
+    
     
 }
