@@ -5,6 +5,10 @@
  */
 package com.project.git;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  *
  * @author Feri Winarta
@@ -77,6 +81,8 @@ public class Model {
                 break;
             case 3 :
                 break;
+            case 4 :
+                break;
             default :
                 System.out.println("salah menu");
                 break;
@@ -84,6 +90,19 @@ public class Model {
         
     }
     
-    
+    public void initialize(){
+        System.out.println("initialized new repository in program");
+        System.out.println("membuat file-untuk-git.txt");
+        
+        // buat file-untuk-git.txt
+        try {
+            FileWriter writeFile = new FileWriter(new File("file-untuk-git.txt"));
+        } catch(IOException e) {
+            System.out.println("error saat buat file");
+        }
+        
+        
+            
+    }
     
 }
