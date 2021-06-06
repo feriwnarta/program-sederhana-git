@@ -23,15 +23,10 @@ import java.util.logging.Logger;
  * @author Feri Winarta
  */
 public class Model {
-    private Controller control;
-    
     public class GitHead {
-        private GitHead initialize;
-        private GitHead head;
-        private String unix;
-        private String userName;
-        private String userEmail;
-
+        private GitHead initialize, head, next;
+        private String unix, userName, userEmail, message;
+        
         public GitHead getInitialize() {
             return initialize;
         }
@@ -74,6 +69,9 @@ public class Model {
         
         
     }
+    
+    private Controller control;
+    private GitHead pointer;
     
     public Model(Controller control){
         this.control = control;
@@ -136,9 +134,50 @@ public class Model {
     }
     
      private void commit(String message){
+         // jika pointer head masih null
+         // berarti baru pertama commit, dan pointer ini akan
+         
+         // commit initialized
+         if(pointer == null){
+             commitInitialize(message);
+         } else {
+             
+         }
+         
+         
+         
+         
         
-    }
-    
+     }
+     
+     private void commitInitialize(String message){
+          // menjadi commit awal initialize
+         Scanner input = new Scanner(System.in);
+         if(pointer == null) {
+             pointer = new GitHead();
+             if(pointer.getUserName() == null) {
+                 System.out.println("tolong bilang saya anda siapa ? ");
+                 System.out.println("tolong isi username dan email");
+                 System.out.println("masukan username : ");
+                 String userName = input.nextLine();
+                 System.out.println("masukan email : ");
+                 String email = input.nextLine();
+                 pointer.setUserName(userName);
+                 pointer.setUserEmail(email);
+                 pointer.setInitialize(pointer);
+                 pointer.setHead(pointer);
+                 pointer.message = message;
+             }
+         }
+     }
+     
+     private void commitNext(){
+         GitHead next = new GitHead();
+         next.setUserName(pointer.userName);
+         next.setUserEmail(pointer.userEmail);
+         pointer.next = next;
+         
+     }
     
     
     
