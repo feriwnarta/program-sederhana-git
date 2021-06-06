@@ -5,9 +5,14 @@
  */
 package com.project.git;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -76,6 +81,7 @@ public class Model {
         // pilihan dari menu
         switch(resultInputUser){
             case 1 :
+                initialize();
                 break;
             case 2 :
                 break;
@@ -90,19 +96,25 @@ public class Model {
         
     }
     
-    public void initialize(){
+    private void initialize(){
         System.out.println("initialized new repository in program");
         System.out.println("membuat file-untuk-git.txt");
-        
         // buat file-untuk-git.txt
         try {
             FileWriter writeFile = new FileWriter(new File("file-untuk-git.txt"));
         } catch(IOException e) {
             System.out.println("error saat buat file");
+        }   
+    }
+    
+    private void editFIle(String isiPesan){
+        
+        try {
+            BufferedReader buffer = new BufferedReader(new FileReader("file-untu-git.txt"));
+        } catch (FileNotFoundException ex) {
+            System.out.println("file-untuk-git tidak ada / belum dibuat");
         }
         
-        
-            
     }
     
 }
