@@ -25,8 +25,9 @@ public class View {
         System.out.println("menu git");
         System.out.println("1. initialize(akan membuat file-untuk-git.txt)");
         System.out.println("2. edit file");
-        System.out.println("2. git commit");
+        System.out.println("3. git commit");
         System.out.println("4. git checkout to commit");
+        System.out.println("5. git log");
         // System.out.println("5. git branch"); 
         System.out.println("masukan pilihan : ");
         int pilihan = input.nextInt();

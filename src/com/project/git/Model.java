@@ -72,6 +72,7 @@ public class Model {
     
     private Controller control;
     private GitHead pointer;
+    private int countCommit = 0;
     
     public Model(Controller control){
         this.control = control;
@@ -89,8 +90,12 @@ public class Model {
                 editFile(edit());
                 break;
             case 3 :
+                commit();
                 break;
             case 4 :
+                break;
+            case 5 :
+                gitLog();
                 break;
             default :
                 System.out.println("salah menu");
@@ -133,21 +138,20 @@ public class Model {
         return message = input.nextLine();
     }
     
-     private void commit(String message){
+     private void commit(){
          // jika pointer head masih null
          // berarti baru pertama commit, dan pointer ini akan
          
          // commit initialized
+         System.out.println("Masukan pesan commit : ");
+         Scanner input = new Scanner(System.in);
+         String message = input.nextLine();
+         
          if(pointer == null){
              commitInitialize(message);
          } else {
-             
+             commitNext(message);
          }
-         
-         
-         
-         
-        
      }
      
      private void commitInitialize(String message){
@@ -169,17 +173,55 @@ public class Model {
                  pointer.message = message;
              }
          }
+         overWriteFile();
      }
      
-     private void commitNext(){
-         GitHead next = new GitHead();
-         next.setUserName(pointer.userName);
-         next.setUserEmail(pointer.userEmail);
-         pointer.next = next;
+     private void commitNext(String message){
+         GitHead commitNext = new GitHead();
+         commitNext.setUserName(pointer.userName);
+         commitNext.setUserEmail(pointer.userEmail);
+         commitNext.message = message;
+         pointer.head = null;
+         pointer.next = commitNext;
+         pointer = commitNext;
+         pointer.head = pointer;
+         overWriteFile();
+     }
+     
+     private void overWriteFile(){
+         BufferedReader read = null;
+         BufferedWriter write = null;
+
+         // baca dan overwrite commit
+         try {
+            read = new BufferedReader(new FileReader("file-untuk-git.txt"));
+            write = new BufferedWriter(new FileWriter("commit " + countCommit));
+            String baca = read.readLine();
+            while(baca != null){
+                write.write(baca);
+                write.newLine();
+                baca = read.readLine();
+            }
+            // nanti di ganti unix code
+            countCommit++;
+        } catch (FileNotFoundException ex) {
+            System.out.println("file tidak ditemukan " + ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println("file io expcetion " + ex.getMessage());
+        } 
          
      }
-    
-    
-    
+     
+     private void gitLog(){
+         if(pointer == null){
+             System.out.println("tidak ada commit !!!");
+         }
+         
+         while(pointer != null){
+             System.out.println(pointer.userName + " " +  pointer.userEmail);
+             System.out.println(pointer.message);
+             pointer = pointer.next;
+         }
+     }
     
 }
