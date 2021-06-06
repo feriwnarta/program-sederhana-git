@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class Model {
     public class GitHead {
-        private GitHead initialize, head, next;
+        private GitHead initialize, head, next, first;
         private String unix, userName, userEmail, message;
         
         public GitHead getInitialize() {
@@ -71,7 +71,7 @@ public class Model {
     }
     
     private Controller control;
-    private GitHead pointer;
+    private GitHead last, initialize;
     private int countCommit = 0;
     
     public Model(Controller control){
@@ -147,7 +147,7 @@ public class Model {
          Scanner input = new Scanner(System.in);
          String message = input.nextLine();
          
-         if(pointer == null){
+         if(initialize == null){
              commitInitialize(message);
          } else {
              commitNext(message);
@@ -157,35 +157,38 @@ public class Model {
      private void commitInitialize(String message){
           // menjadi commit awal initialize
          Scanner input = new Scanner(System.in);
-         if(pointer == null) {
-             pointer = new GitHead();
-             if(pointer.getUserName() == null) {
+         if(initialize == null) {
+                 initialize = new GitHead();
                  System.out.println("tolong bilang saya anda siapa ? ");
                  System.out.println("tolong isi username dan email");
                  System.out.println("masukan username : ");
                  String userName = input.nextLine();
                  System.out.println("masukan email : ");
                  String email = input.nextLine();
-                 pointer.setUserName(userName);
-                 pointer.setUserEmail(email);
-                 pointer.setInitialize(pointer);
-                 pointer.setHead(pointer);
-                 pointer.message = message;
-             }
+                 initialize.setUserName(userName);
+                 initialize.setUserEmail(email);
+                 // pointer.setInitialize(pointer);
+                 initialize.setHead(initialize);
+                 initialize.message = message;
+                 last = initialize;
          }
          overWriteFile();
      }
      
      private void commitNext(String message){
          GitHead commitNext = new GitHead();
-         commitNext.setUserName(pointer.userName);
-         commitNext.setUserEmail(pointer.userEmail);
+         commitNext.setUserName(last.userName);
+         commitNext.setUserEmail(last.userEmail);
          commitNext.message = message;
-         pointer.head = null;
-         pointer.next = commitNext;
-         pointer = commitNext;
-         pointer.head = pointer;
-         overWriteFile();
+         last.next = commitNext;
+         last = commitNext;
+         last.head = last;
+         
+         //pointer.next = commitNext;
+         //pointer.head = commitNext;
+         //pointer = commitNext;
+         //pointer.head = pointer;
+         //overWriteFile();
      }
      
      private void overWriteFile(){
@@ -213,14 +216,17 @@ public class Model {
      }
      
      private void gitLog(){
-         if(pointer == null){
+         if(initialize == null){
              System.out.println("tidak ada commit !!!");
          }
          
-         while(pointer != null){
-             System.out.println(pointer.userName + " " +  pointer.userEmail);
-             System.out.println(pointer.message);
-             pointer = pointer.next;
+         GitHead temp = initialize;
+         
+         while(temp != null){
+             System.out.println(temp.getUserEmail() + " " + temp.getUserName());
+             System.out.println(temp.message);
+             
+             temp = temp.next;
          }
      }
     
