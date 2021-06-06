@@ -10,6 +10,7 @@ package com.project.git;
  * @author Feri Winarta
  */
 public class Model {
+    private Controller control;
     
     public class GitHead {
         private GitHead initialize;
@@ -60,6 +61,29 @@ public class Model {
         
         
     }
+    
+    public Model(){
+        control = new Controller();
+    }
+    
+    public void ambilDataUserInput(){
+        int resultInputUser = control.getUserInput();
+        
+        // pilihan dari menu
+        switch(resultInputUser){
+            case 1 :
+                break;
+            case 2 :
+                break;
+            case 3 :
+                break;
+            default :
+                System.out.println("salah menu");
+                break;
+        }
+        
+    }
+    
     
     
 }
