@@ -11,4 +11,55 @@ package com.project.git;
  */
 public class Model {
     
+    public class GitHead {
+        private GitHead initialize;
+        private GitHead head;
+        private String unix;
+        private String userName;
+        private String userEmail;
+
+        public GitHead getInitialize() {
+            return initialize;
+        }
+
+        public void setInitialize(GitHead initialize) {
+            this.initialize = initialize;
+        }
+
+        public GitHead getHead() {
+            return head;
+        }
+
+        public void setHead(GitHead head) {
+            this.head = head;
+        }
+
+        public String getUnix() {
+            return unix;
+        }
+
+        public void setUnix(String unix) {
+            this.unix = unix;
+        }
+
+        public String getUserName() {
+            return userName;
+        }
+
+        public void setUserName(String userName) {
+            this.userName = userName;
+        }
+
+        public String getUserEmail() {
+            return userEmail;
+        }
+
+        public void setUserEmail(String userEmail) {
+            this.userEmail = userEmail;
+        }
+        
+        
+    }
+    
+    
 }
