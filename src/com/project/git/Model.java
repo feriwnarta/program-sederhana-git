@@ -11,8 +11,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.BufferedWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+
 
 /**
  *
@@ -71,8 +74,8 @@ public class Model {
         
     }
     
-    public Model(){
-        control = new Controller();
+    public Model(Controller control){
+        this.control = control;
     }
     
     public void ambilDataUserInput(){
@@ -84,6 +87,7 @@ public class Model {
                 initialize();
                 break;
             case 2 :
+                editFIle("ASD");
                 break;
             case 3 :
                 break;
@@ -100,21 +104,25 @@ public class Model {
         System.out.println("initialized new repository in program");
         System.out.println("membuat file-untuk-git.txt");
         // buat file-untuk-git.txt
+        
+            File newFile = new File("file-untuk-git.txt");
         try {
-            FileWriter writeFile = new FileWriter(new File("file-untuk-git.txt"));
-        } catch(IOException e) {
-            System.out.println("error saat buat file");
-        }   
+            newFile.createNewFile();
+        } catch (IOException ex) {
+            System.out.println("file-untuk-git.txt gagal dibuat \n" + ex.getMessage());
+        }
     }
     
     private void editFIle(String isiPesan){
+        // baca file-untuk-git.txt
         
+        BufferedWriter writeFile;
         try {
-            BufferedReader buffer = new BufferedReader(new FileReader("file-untu-git.txt"));
-        } catch (FileNotFoundException ex) {
-            System.out.println("file-untuk-git tidak ada / belum dibuat");
+            writeFile = new BufferedWriter(new FileWriter("file-untuk-git.txt"));
+        } catch (IOException ex) {
+            System.out.println("file-untuk-git gagal diload untuk diedit \n" + ex.getMessage());
         }
-        
+
     }
     
 }

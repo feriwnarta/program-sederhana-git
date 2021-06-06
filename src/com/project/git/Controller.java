@@ -11,11 +11,13 @@ package com.project.git;
  */
 public class Controller {
     private View view;
+    private Model model;
     private int userInput;
     
     // default konstruktor
     public Controller(){
         view = new View();
+        model = new Model(this);
     }
     
     // tampil menu git
@@ -30,6 +32,10 @@ public class Controller {
     // mendapatkan pilihan dari menu
     public int getUserInput() {
         return userInput;
+    }
+    
+    public void resultAmbilDataUserInput(){
+        model.ambilDataUserInput();
     }
     
     

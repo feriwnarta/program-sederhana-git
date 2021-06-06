@@ -12,7 +12,12 @@ package com.project.git;
 public class GitApp {
     public static void main(String[] args) {
         Controller control = new Controller();
-        control.showMenu();
+        
+        while(true){
+            control.showMenu();
+            control.resultAmbilDataUserInput();
+        }
+        
         
         
         
