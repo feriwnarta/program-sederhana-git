@@ -198,7 +198,7 @@ public class Model {
          // baca dan overwrite commit
          try {
             read = new BufferedReader(new FileReader("file-untuk-git.txt"));
-            write = new BufferedWriter(new FileWriter("commit " + countCommit));
+            write = new BufferedWriter(new FileWriter("commit " + countCommit + ".txt"));
             String baca = read.readLine();
             while(baca != null){
                 write.write(baca);
