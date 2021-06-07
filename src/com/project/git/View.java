@@ -28,7 +28,8 @@ public class View {
         System.out.println("3. git commit");
         System.out.println("4. git checkout to commit");
         System.out.println("5. git log");
-        // System.out.println("5. git branch"); 
+        System.out.println("6. exit program");
+        // System.out.println("selanjutnya. git branch"); 
         System.out.println("masukan pilihan : ");
         int pilihan = input.nextInt();
         return pilihan;

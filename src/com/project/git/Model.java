@@ -13,8 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.BufferedWriter;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 
 
@@ -93,14 +92,33 @@ public class Model {
                 commit();
                 break;
             case 4 :
+                checkout();
                 break;
             case 5 :
                 gitLog();
                 break;
+            case 6 :
+                System.out.println("keluar dari program");
+                System.exit(0);
+                return;
             default :
                 System.out.println("salah menu");
                 break;
         }
+        
+    }
+    
+    private void checkout(){
+        // checkout untuk commit dulu, belum ke branch
+        // commit berdasarkan nama commit dulu, belum ke string unix (hash)
+        Scanner input = new Scanner(System.in);
+        System.out.println("checkout commit : ");
+        System.out.println("masukan nama commit : "); // nama commit bukan kode hash
+        String value = input.nextLine();
+        
+        // overwrite file commit ke file-untuk-git
+        overWriteFile("file-untuk-git", value + ".txt", false);
+        
         
     }
     
@@ -172,7 +190,7 @@ public class Model {
                  initialize.message = message;
                  last = initialize;
          }
-         overWriteFile();
+         overWriteFile(message,"file-untuk-git.txt", true);
      }
      
      private void commitNext(String message){
@@ -189,17 +207,18 @@ public class Model {
          //pointer = commitNext;
          //pointer.head = pointer;
          
-         overWriteFile();
+         overWriteFile(message, "file-untuk-git.txt", true);
      }
      
-     private void overWriteFile(){
+     private void overWriteFile(String message, String from,
+               boolean isOverWrite){
          BufferedReader read = null;
          BufferedWriter write = null;
 
          // baca dan overwrite commit
          try {
-            read = new BufferedReader(new FileReader("file-untuk-git.txt"));
-            write = new BufferedWriter(new FileWriter("commit " + countCommit + ".txt", true));
+            read = new BufferedReader(new FileReader(from));
+            write = new BufferedWriter(new FileWriter(message + ".txt", isOverWrite));
             String baca = read.readLine();
             while(baca != null){
                 write.write(baca);
